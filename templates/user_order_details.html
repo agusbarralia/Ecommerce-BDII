@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles de orden{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user_order_details.css') }}">
+
+<div class="order-details-container">
+    <h1>Detalles de la Orden</h1>
+    <p><strong>ID de Orden:</strong> {{ order.order_number }}</p>
+    <p><strong>Email:</strong> {{ order.user_id }}</p>
+    <p><strong>Nombre:</strong> {{ order.name }}</p>
+    <p><strong>Dirección:</strong> {{ order.address }}</p>
+    <p><strong>Total:</strong> ${{ order.total }}</p>
+    <p><strong>Estado:</strong> <span class="order-status">{{ order.status }}</span></p>
+
+    <h2>Items</h2>
+    <ul>
+        {% for item in order['items'] %}
+        <li>{{ item.name }} - Cantidad: {{ item.quantity }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href= "/user/orders">Ir a mis ordenes</a>
+
+    {% if order.status == "Pendiente de pago" %}
+    <a href="{{ url_for('checkout', order_number=order.order_number) }}" class="pay-button">Ir a pagar</a>
+    {% endif %}
+</div>
+{% endblock %}

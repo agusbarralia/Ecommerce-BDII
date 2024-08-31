@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Activity Log{% endblock %}
+
+{% block content %}
+<h1>Activity Log</h1>
+<table>
+    <tr>
+        <th>Product ID</th>
+        <th>Changes</th>
+        <th>Operator</th>
+        <th>Timestamp</th>
+    </tr>
+    {% for log in logs %}
+    <tr>
+        <td>{{ log.productId }}</td>
+        <td>
+            {% for key, change in log.changes.items() %}
+            <p>{{ key }}: {{ change.old }} -> {{ change.new }}</p>
+            {% endfor %}
+        </td>
+        <td>{{ log.operator }}</td>
+        <td>{{ log.timestamp }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="/products">Back to Product List</a>
+{% endblock %}

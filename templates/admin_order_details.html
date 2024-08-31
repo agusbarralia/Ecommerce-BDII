@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles de la Orden{% endblock %}
+
+{% block content %}
+<div class="order-details-container">
+    <h1>Detalles de la Orden</h1>
+    <p><strong>ID de Orden:</strong> {{ order.order_number }}</p>
+    <p><strong>Nombre de Usuario:</strong> {{ order.user_id }}</p>
+    <p><strong>Nombre:</strong> {{ order.name }}</p>
+    <p><strong>Dirección:</strong> {{ order.address }}</p>
+    <p><strong>Total:</strong> ${{ order.total }}</p>
+
+    <h2>Items</h2>
+    <ul>
+        {% for item in order['items'] %}
+        <li>{{ item.name }} - Cantidad: {{ item.quantity }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/admin/orders">Volver a Todas las Ordenes</a>
+</div>
+{% endblock %}

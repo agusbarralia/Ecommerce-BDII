@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Producto{% endblock %}
+
+{% block content %}
+<div class="add-product-form">
+    <h1>Agregar Nuevo Producto</h1>
+    <form method="POST" action="{{ url_for('add_product') }}" enctype="multipart/form-data">
+        <label for="name">Nombre Del Producto:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="price">Precio:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" step="1" required>
+
+        <label for="description">Descripcion:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="image_files">Imágenes (puedes seleccionar varias):</label>
+        <input type="file" id="image_files" name="image_files" multiple>
+
+        <button type="submit">Agregar Producto</button>
+    </form>
+    <a href="{{ url_for('admin_products_page') }}">Volver a Productos (Admin)</a>
+</div>
+{% endblock %}

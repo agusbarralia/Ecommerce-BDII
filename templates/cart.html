@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Carrito{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h1>Tu Carrito</h1>
+    {% if items and items|length > 0 %}
+    <table>
+        <tr>
+            <th>Nombre del Producto</th>
+            <th>Cantidad</th>
+            <th>Acción</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>
+                <form action="/update_cart" method="post">
+                    <input type="hidden" name="product_id" value="{{ item.productId }}">
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                    <button type="submit">Actualizar</button>
+                </form>
+            </td>
+            <td>
+                <form action="/remove_from_cart/{{ item.productId }}" method="post">
+                    <button type="submit" class="delete-btn">Quitar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/create_order" method="post">
+        <button type="submit">Confirmar orden</button>
+    </form>
+    {% else %}
+    <p>Tu Carrito está vacío.</p>
+    {% endif %}
+    <a href="/products" class="continue-shopping">Seguir Comprando</a>
+</div>
+{% endblock %}

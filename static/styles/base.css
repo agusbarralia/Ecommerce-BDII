@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+   font-family: 'Roboto', sans-serif;
+   margin: 0;
+   padding: 0;
+   background-color: #f8f9fa;
+}
+
+#flipkart-navbar {
+    background-color: #2874f0;
+    color: #FFFFFF;
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 10px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.list-inline {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.list-inline-item {
+    font-size: 15px;
+}
+
+.list-inline-item a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.list-inline-item a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.list-inline-item .dropdown-item {
+    color: inherit;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.col-lg-12 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.col-lg-2, .col-lg-8 {
+    padding: 0 10px;
+}
+
+.col-lg-2 {
+    display: flex;
+    align-items: center;
+}
+
+.flipkart-navbar-input {
+    padding: 10px 16px;
+    border-radius: 2px 0 0 2px;
+    border: 0 none;
+    outline: 0 none;
+    font-size: 15px;
+    color: #000;
+    width: calc(100% - 60px); 
+    box-sizing: border-box;
+}
+
+.flipkart-navbar-button {
+    background-color: #2874f0;
+    border: 1px solid #fff;
+    border-radius: 0 2px 2px 0;
+    color: white;
+    padding: 10px 0;
+    height: 43px;
+    cursor: pointer;
+    width: 60px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flipkart-navbar-button:focus {
+    outline: none;
+}
+
+.flipkart-navbar-button svg path {
+    fill: white;
+}
+
+table {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+table, th, td {
+   border: 1px solid black;
+}
+
+th, td {
+   padding: 10px;
+   text-align: left;
+}
+
+.content {
+   margin: 20px;
+}
+
+#flipkart-navbar a, #flipkart-navbar form button {
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#flipkart-navbar a:hover, #flipkart-navbar form button:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+#flipkart-navbar form button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#flipkart-navbar form button:hover {
+    color: #000;
+    text-decoration: underline;
+}

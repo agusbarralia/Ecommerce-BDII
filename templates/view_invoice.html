@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Mis ordenes{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <h1>Factura</h1>
+        </div>
+        <div class="invoice-details">
+            <table>
+                <tr>
+                    <th>Orden ID:</th>
+                    <td>{{ invoice_info.order_number }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha:</th>
+                    <td>{{ invoice_info.date }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre:</th>
+                    <td>{{ invoice_info.name }}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ invoice_info.user_id }}</td>
+                </tr>
+                <tr>
+                    <th>Dirección:</th>
+                    <td>{{ invoice_info.address }}</td>
+                </tr>
+                <tr>
+                    <th>Condición de IVA:</th>
+                    <td>{{ invoice_info.iva_condition }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="invoice-items">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in invoice_info['items'] %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.price }}</td>
+                        <td>${{ item.quantity * item.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="invoice-summary">
+            <table>
+                <tr>
+                    <th>Total:</th>
+                    <td>${{ invoice_info.total }}</td>
+                </tr>
+                <tr>
+                    <th>IVA:</th>
+                    <td>${{ invoice_info.iva }}</td>
+                </tr>
+                <tr>
+                    <th>Recargo:</th>
+                    <td>${{ invoice_info.total_fee }}</td>
+                </tr>
+                <tr>
+                
+                    <th>Total Final:</th>
+                    <td>${{ invoice_info.final_total }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

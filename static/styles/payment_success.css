@@ -1,0 +1,50 @@
+.payment-success-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.payment-success-container h1 {
+    color: #28a745;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.payment-success-container p {
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.payment-success-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.payment-success-container li {
+    color: #555;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.payment-success-container a {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.payment-success-container a:hover {
+    background-color: #0056b3;
+}

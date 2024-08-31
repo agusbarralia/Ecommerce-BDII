@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.invoice-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+}
+
+.invoice-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.invoice-header h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.invoice-details, .invoice-items, .invoice-summary {
+    margin-bottom: 20px;
+}
+
+.invoice-details table, .invoice-items table, .invoice-summary table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.invoice-details th, .invoice-details td,
+.invoice-items th, .invoice-items td,
+.invoice-summary th, .invoice-summary td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.invoice-details th, .invoice-items th, .invoice-summary th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.invoice-details td, .invoice-items td, .invoice-summary td {
+    color: #555;
+}
+
+.invoice-summary th {
+    text-align: right;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.invoice-summary td {
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+}
+
+.invoice-items thead {
+    background-color: #f4f4f4;
+}
+
+.invoice-items thead th {
+    font-weight: bold;
+}
+
+.invoice-items tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.invoice-items tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.invoice-summary tr {
+    border-top: 1px solid #ddd;
+    font-size: 1.1em;
+}
+
+.invoice-summary tr:last-child {
+    border-top: 2px solid #333;
+    font-weight: bold;
+}
+
+@media print {
+    body {
+        background-color: #fff;
+    }
+
+    .invoice-container {
+        box-shadow: none;
+        margin: 0;
+        width: 100%;
+    }
+
+    .invoice-header h1 {
+        font-size: 2em;
+    }
+}

@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.cart-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.cart-container form {
+    display: inline;
+}
+
+.cart-container input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+
+.cart-container button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s, transform 0.2s;
+    margin-right: 10px;
+}
+
+.cart-container button.delete-btn {
+    background-color: #dc3545;
+}
+
+.cart-container button.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.cart-container button:hover {
+    background-color: #0056b3;
+    
+}
+
+.cart-container .continue-shopping {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.cart-container .continue-shopping:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.cart-container p {
+    text-align: center;
+    color: #666;
+    font-size: 1.2em;
+    margin-top: 40px;
+}

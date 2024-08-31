@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>Perfil De Usuario</h1>
+    <p>Nombre: {{ user.name }}</p>
+    <p>Email: {{ user.username }}</p>
+    <p>Dirección: {{ user.address }}</p>
+    <p>Numero ID: {{ user.id_number }}</p>
+    <p>Clasificación: {{ user.classification }}</p>
+    <form action="{{ url_for('auth.logout') }}" method="post">
+        <button type="submit">Salir</button>
+    </form>
+</div>
+{% endblock %}

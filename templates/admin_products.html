@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Productos (Admin){% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Productos (Admin)</h1>
+    <table>
+        <tr>
+            <th>ID del Producto</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.productId }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+            <td class="action-buttons">
+                <form action="{{ url_for('edit_product', product_id=product.productId) }}" method="get" style="display:inline;">
+                    <button type="submit" class="action-button">Editar</button>
+                </form>
+                <form action="{{ url_for('delete_product', product_id=product.productId) }}" method="post" style="display:inline;">
+                    <button type="submit" class="action-button delete-button">Borrar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('add_product') }}" class="add-product-link">Agregar Nuevo Producto</a>
+</div>
+{% endblock %}

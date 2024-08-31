@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.add-product-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.add-product-form h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.add-product-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-product-form form label {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.add-product-form form input[type="text"],
+.add-product-form form input[type="number"],
+.add-product-form form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.add-product-form form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.add-product-form form button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+}
+
+.add-product-form form button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.add-product-form a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.add-product-form a:hover {
+    text-decoration: underline;
+}

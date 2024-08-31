@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/products.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Lista de Productos</h1>
+            <div class="product-grid">
+                {% for product in products %}
+                    {% if not product.isDeleted and product.stock > 0 %}
+                    <div class="product">
+                        {% if product.images and product.images[0] %}
+                        <img src="{{ url_for('static', filename=product.images[0]) }}" alt="{{ product.name }}">
+                        {% endif %}
+                            <div class="product-details">
+                            <h2>{{ product.name }}</h2>
+                            <p class="product-price">${{ product.price }}</p>
+                        </div>
+                        <div class="product-action">
+                            <a href="/product/{{ product.productId }}" class="view-details-btn">Ver Detalles</a>
+                            <form action="/add_to_cart" method="post">
+                                <input type="hidden" name="product_id" value="{{ product.productId }}">
+                                <input type="hidden" name="name" value="{{ product.name }}">
+                                
+                                <input type="hidden" id="quantity" name="quantity" value="1" class="quantity-input">
+                                <button type="submit" class="btn-add-to-cart">Añadir al Carrito</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

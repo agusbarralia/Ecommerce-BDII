@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+</head>
+<body>
+    <div class="checkout-container">
+        <h1>Checkout</h1>
+
+        <h2>Detalles del Pedido</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                    <td>${{ item.quantity * item.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p>Total: $<span id="total">{{ total }}</span></p>
+        <p id="credit_fee" class="hidden">Recargo por tarjeta de crédito: $<span id="credit_fee_amount">{{ creditFee }}</span></p>
+        <p id="grand_total">Total con recargo: $<span id="grand_total_amount">{{ total }}</span></p>
+        <p id="iva_amount" class="hidden">IVA (21%): $<span id="iva_value"></span></p>
+        <p id="final_total" class="hidden">Total Final: $<span id="final_total_amount">{{ total }}</span></p>
+
+        <h2>Opciones de Pago</h2>
+        <form action="{{ url_for('process_payment', order_number=order_number) }}" method="post" class="payment-form">
+            <input type="hidden" name="order_number" value="{{ order_number }}">
+            <input type="hidden" name="iva_value" id="hidden_iva_value">
+            <input type="hidden" name="final_total" id="hidden_final_total">
+            <input type="hidden" name="iva_condition" id="hidden_iva_condition">
+            <input type="hidden" name="credit_fee_amount" id="hidden_credit_fee_amount"> <!-- Campo oculto para el recargo -->
+
+            <div class="form-group">
+                <label for="payment_method">Elija su metodo de Pago:</label>
+                <select id="payment_method" name="payment_method" class="form-control">
+                    <option value="cash">Efectivo</option>
+                    <option value="credit">Tarjeta de Crédito</option>
+                    <option value="debit">Tarjeta de Débito</option>
+                </select>
+            </div>
+            <div id="credit_options" class="form-group hidden">
+                <label for="installments">Elija la cantidad de cuotas:</label>
+                <select id="installments" name="installments" class="form-control">
+                    <option value="1">1 cuota</option>
+                    <option value="6">6 cuotas</option>
+                    <option value="12">12 cuotas</option>
+                </select>
+            </div>
+            <div id="debit_options" class="form-group hidden">
+                <p>Tarjeta de Débito: Pago automático en una sola cuota.</p>
+            </div>
+            <div class="form-group">
+                <label for="taxes">Condicion ante el IVA:</label>
+                <select id="taxes" name="IVA" class="form-control">
+                    <option value="Responsable no Inscripto">IVA Responsable no Inscripto</option>
+                    <option value="Responsable Inscripto">IVA Responsable Inscripto</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Confirmar Pago</button>
+        </form>
+    </div>
+
+    <script>
+    document.getElementById('payment_method').addEventListener('change', function() {
+        updateTotals();
+    });
+
+    document.getElementById('installments').addEventListener('change', function() {
+        updateTotals();
+    });
+
+    document.getElementById('taxes').addEventListener('change', function() {
+        updateTotals();
+    });
+
+    function updateTotals() {
+        var total = parseFloat(document.getElementById('total').innerText);
+        var creditFee = document.getElementById('credit_fee');
+        var creditFeeAmount = document.getElementById('credit_fee_amount');
+        var grandTotal = document.getElementById('grand_total');
+        var grandTotalAmount = document.getElementById('grand_total_amount');
+        var ivaAmount = document.getElementById('iva_amount');
+        var ivaValue = document.getElementById('iva_value');
+        var finalTotal = document.getElementById('final_total');
+        var finalTotalAmount = document.getElementById('final_total_amount');
+        var hiddenIvaValue = document.getElementById('hidden_iva_value');
+        var hiddenFinalTotal = document.getElementById('hidden_final_total');
+        var hiddenIvaCondition = document.getElementById('hidden_iva_condition');
+        var hiddenCreditFeeAmount = document.getElementById('hidden_credit_fee_amount'); // Referencia al campo oculto
+        var creditOptions = document.getElementById('credit_options');
+        var debitOptions = document.getElementById('debit_options');
+        var paymentMethod = document.getElementById('payment_method').value;
+        var installments = document.getElementById('installments').value;
+        var taxes = document.getElementById('taxes').value;
+
+        var fee = 0;
+        var feePercentage = 0.10;
+
+        if (paymentMethod == 'credit') {
+            creditOptions.classList.remove('hidden');
+            debitOptions.classList.add('hidden');
+
+            if (installments == '6') {
+                feePercentage = 0.20;
+                total *= 1.20;
+            } else if (installments == '12') {
+                feePercentage = 0.35;
+                total *= 1.35;
+            }
+
+            fee = total * feePercentage;
+            creditFee.innerHTML = 'Recargo por tarjeta de crédito (' + (feePercentage * 100) + '%): $<span id="credit_fee_amount"></span>';
+            creditFee.classList.remove('hidden');
+
+            // Actualizar el valor dentro del span después de establecer el HTML
+            document.getElementById('credit_fee_amount').innerText = fee.toFixed(2);
+        } else if (paymentMethod == 'debit') {
+            creditOptions.classList.add('hidden');
+            debitOptions.classList.remove('hidden');
+            creditFee.classList.add('hidden');
+        } else {
+            creditOptions.classList.add('hidden');
+            debitOptions.classList.add('hidden');
+            creditFee.classList.add('hidden');
+        }
+
+        grandTotalAmount.innerText = (total).toFixed(2);
+        grandTotal.classList.remove('hidden');
+
+        var iva = 0;
+        if (taxes == 'Responsable Inscripto') {
+            iva = (total * 0.21);
+            ivaValue.innerText = iva.toFixed(2);
+            ivaAmount.classList.remove('hidden');
+        } else {
+            ivaAmount.classList.add('hidden');
+        }
+
+        finalTotalAmount.innerText = (total + iva).toFixed(2);
+        finalTotal.classList.remove('hidden');
+
+        hiddenIvaValue.value = iva.toFixed(2);
+        hiddenFinalTotal.value = (total + iva).toFixed(2);
+        hiddenIvaCondition.value = taxes;
+        hiddenCreditFeeAmount.value = fee.toFixed(2); // Actualizar el campo oculto con el valor del recargo
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateTotals();
+    });
+    </script>
+</body>
+</html>
+
+{% endblock %}

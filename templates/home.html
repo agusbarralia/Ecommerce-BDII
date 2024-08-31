@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="homepage-container">
+    <header class="homepage-header">
+        <h1>Bienvenido a TiendaMia</h1>
+        <h2>TiendaMia: Tu Aliado en Tecnología</h2>
+    </header>
+    <section class="featured-products">
+        <h2>Productos Destacados</h2>
+        <div class="slider">
+            <div class="slides">
+                {% if products and products|length > 0 %}
+                    {% for product in products[:3] %}
+                    <div class="slide">
+                        <img src="{{ url_for('static', filename=product.images[0]) }}" alt="{{ product.name }}">
+                        <div class="product-details">
+                            <h3>{{ product.name }}</h3>
+                            <p class="product-price">${{ product.price }}</p>
+                            <a href="/product/{{ product.productId }}" class="btn btn-primary">Ver Detalles</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No hay productos disponibles.</p>
+                {% endif %}
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </section>
+    <section class="about-us">
+        <p><strong>¿Quiénes Somos?</strong></p>
+        <p>En <strong>TiendaMia</strong>, somos más que una tienda de hardware de computadoras; somos tu socio en tecnología. Fundada en 2010 por un grupo de entusiastas tecnológicos, TiendaMia nació con la misión de acercar las últimas innovaciones en hardware de computadoras a los hogares y oficinas de todo el país. Nuestro equipo está compuesto por expertos apasionados por la tecnología, siempre listos para ofrecer asesoramiento personalizado y soluciones a medida para cada cliente.</p>
+        <p><strong>¿A qué nos dedicamos?</strong></p>
+        <p>En TiendaMia, nos especializamos en ofrecer una amplia gama de productos de hardware de alta calidad. Desde componentes internos como procesadores, tarjetas madre, memorias RAM y discos duros, hasta periféricos esenciales como monitores, teclados, ratones y más. Trabajamos con las marcas líderes en el mercado para asegurar que nuestros clientes reciban productos duraderos y de alto rendimiento.</p>
+    </section>
+    <section class="our-difference">
+        <p><strong>Nuestra Diferencia</strong></p>
+        <ul>
+            <li><strong>Calidad y Variedad</strong>: Seleccionamos cuidadosamente cada uno de nuestros productos para garantizar su calidad y rendimiento. Contamos con una variedad extensa que abarca desde piezas para ensambladores aficionados hasta equipos de alta gama para gamers y profesionales.</li>
+            <li><strong>Asesoría Experta</strong>: Nuestro equipo de soporte técnico está siempre disponible para ayudarte a encontrar las soluciones que mejor se adapten a tus necesidades. Ofrecemos asesoramiento gratuito para que tomes decisiones informadas.</li>
+            <li><strong>Precios Competitivos</strong>: En TiendaMia, creemos que la tecnología de punta debe ser accesible para todos. Por eso, ofrecemos precios competitivos y promociones exclusivas para nuestros clientes.</li>
+            <li><strong>Compra Segura y Fácil</strong>: Nuestra plataforma de venta online está diseñada para ofrecer una experiencia de compra segura y fácil. Con solo unos clics, puedes encontrar lo que necesitas, realizar tu compra y recibir tu pedido en la comodidad de tu hogar.</li>
+        </ul>
+    </section>
+    <section class="our-commitment">
+        <p><strong>Nuestro Compromiso</strong></p>
+        <p>En TiendaMia, nuestro compromiso es con la satisfacción de nuestros clientes. Nos esforzamos por ofrecer un servicio de alta calidad, manteniendo siempre la transparencia y la honestidad en todas nuestras transacciones. Estamos aquí para acompañarte en cada paso de tu viaje tecnológico, desde la elección del hardware perfecto hasta la instalación y el soporte postventa.</p>
+    </section>
+    <section class="contact-us">
+        <p><strong>Contáctanos</strong></p>
+        <p>Estamos siempre a tu disposición para resolver cualquier duda o consulta que tengas. No dudes en ponerte en contacto con nosotros a través de nuestro chat en línea, correo electrónico o visitando nuestra tienda física. En TiendaMia, tu satisfacción es nuestra prioridad.</p>
+        <p>¡Gracias por elegir TiendaMia, donde la tecnología se encuentra con la confianza y la excelencia!</p>
+    </section>
+</div>
+
+<script>
+let currentSlide = 0;
+
+function moveSlide(direction) {
+    const slides = document.querySelector('.slides');
+    const totalSlides = slides.children.length;
+    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+</script>
+{% endblock %}

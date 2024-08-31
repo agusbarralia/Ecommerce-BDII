@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Pago Confirmado{% endblock %}
+
+{% block content %}
+<div class="payment-success-container">
+    <h1>Pago Confirmado</h1>
+    <p>Gracias por su compra!</p>
+    <p>Tu número de orden es: {{ payment_info.order_number }}</p>
+    <p>Método de Pago: {{ payment_info.payment_method }}</p>
+    <p>Total: ${{ payment_info.final_total }}</p>
+    <p>Artículos:</p>
+    <ul>
+        {% for item in payment_info['items'] %}
+            <li>{{ item.name }} - Cantidad: {{ item.quantity }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('products_page') }}">Seguir Comprando</a>
+    <a href="{{ url_for('view_invoice', order_id=payment_info.order_number) }}">Ver Factura</a>
+</div>
+{% endblock %}

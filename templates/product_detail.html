@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles de Producto{% endblock %}
+
+{% block content %}
+<div class="product-detail-container">
+    <div class="product-detail">
+        <div class="product-image">
+            {% if product.images %}
+                {% for image in product.images %}
+                <div class="slide">
+                    <img src="{{ url_for('static', filename=image) }}" alt="{{ product.name }}" >
+                </div>
+                {% endfor %}
+            {% endif %}
+            <div class="nav-buttons">
+                <button class="nav-button prev" onclick="moveSlide(-1)">&#10094;</button>
+                <button class="nav-button next" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }} - ${{ product.price }}</h1>
+            <p class="product-id"><strong>ID del producto:</strong> {{ product.productId }}</p>
+            <p class="product-description"><strong>Descripción:</strong> {{ product.description }}</p>
+            <form action="/add_to_cart" method="post">
+                <input type="hidden" name="product_id" value="{{ product.productId }}">
+                <input type="hidden" name="name" value="{{ product.name }}">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input">
+                <button type="submit" class="btn-add-to-cart">Añadir al Carrito</button>
+            </form>
+            <a href="/products" class="back-to-list">Volver a la Lista de Productos</a>
+        </div>
+    </div>
+</div>
+<script>
+    let slideIndex = 0;
+    let slideInterval;
+
+    function showSlides() {
+        let slides = document.getElementsByClassName("slide");
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}
+        slides[slideIndex-1].style.display = "block";
+        slideInterval = setTimeout(showSlides, 5000); //esto cambia las imagenes
+    }
+
+    function moveSlide(n) {
+        clearTimeout(slideInterval);
+        slideIndex += n;
+        let slides = document.getElementsByClassName("slide");
+        if (slideIndex > slides.length) {slideIndex = 1}
+        if (slideIndex < 1) {slideIndex = slides.length}
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex-1].style.display = "block";
+        slideInterval = setTimeout(showSlides, 5000); //esto cambia las imagenes
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        showSlides();
+    });
+</script>
+
+{% endblock %}

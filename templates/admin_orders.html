@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Todas las Ordenes{% endblock %}
+
+{% block content %}
+<div class="orders-container">
+    <h1>Todas las Ordenes</h1>
+    <table>
+        <tr>
+            <th>ID de Orden</th>
+            <th>Nombre de Usuario</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Estado</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.order_number }}</td>
+            <td>{{ order.user_id}}</td>
+            <td>{{ order.name}}</td>
+            <td>{{ order.address}}</td>
+            <td>{{ order.status }}</td>
+            <td>${{ order.total }}</td>
+            <td>
+                <div class="action-buttons">
+                    <a href="{{ url_for('view_admin_order_details', order_id=order.order_number) }}">Ver Detalles</a>
+                    {% if order.status == "Pagado" %}
+                    <a href="{{ url_for('view_invoice', order_id=order.order_number) }}">Ver Factura</a>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
